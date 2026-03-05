@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "BibliotecaVirtual\\BibliotecaVirtual.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "BibliotecaVirtual.Client\\BibliotecaVirtual.Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "BibliotecaVirtual.Shared\\BibliotecaVirtual.Shared.csproj",
+        "Action": "Start",
+        "DebugTarget": "BibliotecaVirtual.Shared"
+      }
+    ]
+  }
+]

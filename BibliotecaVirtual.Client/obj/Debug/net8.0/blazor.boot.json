@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BibliotecaVirtual.Client",
   "resources": {
-    "hash": "sha256-6b9LY5Oyj5HAoVNXU+t5glN9hVEtQarJU38aBvXTF2c=",
+    "hash": "sha256-9q/IKnByhjsz5p8RCOTx+PrbCAWlTdUqa62qz3XFgbg=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-4g0GzvOXSwZvTLca4PrWJkoeltz+V9IF/hEFDcnVros="
     },
@@ -209,12 +209,12 @@
       "mscorlib.wasm": "sha256-OWQk7msdg0kG9vfJqVNUrPJ8JkyUipH2afbnYJLsKjk=",
       "netstandard.wasm": "sha256-+Ya7AWY6kwjwbQw9fHax9L8Qnn+UZKQF05aZE4ZOXiY=",
       "System.Private.CoreLib.wasm": "sha256-ouVBjy2oz9hC308fAFLns0mvmtyaeUDXt3C5DAk1muc=",
-      "BibliotecaVirtual.Shared.wasm": "sha256-gRZ8FjMsEKjAAp/KGFuKIDtcsdV4clt1ytEhtKAFcMo=",
-      "BibliotecaVirtual.Client.wasm": "sha256-SJ5gXpEKSJtvJj8eBfuHD4upWFKYSVCgd/xcgUO+BGY="
+      "BibliotecaVirtual.Shared.wasm": "sha256-HOIgN9rG4k1jO1Bknfaaa1gaSFPbWVLpd5raNnhfy2Q=",
+      "BibliotecaVirtual.Client.wasm": "sha256-v2dauciGW1DBQLOMyU2EjplsIT0Du16rv96H4edqGKc="
     },
     "pdb": {
-      "BibliotecaVirtual.Shared.pdb": "sha256-md9ZbCHdneT1gvsMp2plTUIIi/HvbRPf2O8d7p1BGKc=",
-      "BibliotecaVirtual.Client.pdb": "sha256-5FDkdN0Otl34Go5giU8z51s1R8CyCEUcHM60kyIm+dU="
+      "BibliotecaVirtual.Shared.pdb": "sha256-hFi05K4cxdAmgXXYkQSQAPP0cUyFL6mFG4J0WLu5SSg=",
+      "BibliotecaVirtual.Client.pdb": "sha256-sOYJmN5G+KNllPPshA0tn8MYXJCfRDgd1PMSqqJc3Gg="
     }
   },
   "cacheBootResources": true,

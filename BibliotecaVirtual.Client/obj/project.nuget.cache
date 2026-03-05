@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9bBze2xS6VI=",
+  "dgSpecHash": "ohszc8FiaFk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Betsy\\Desktop\\STUDY\\BibliotecaVirtual.Client\\BibliotecaVirtual.Client.csproj",
+  "projectFilePath": "C:\\Users\\Betsy\\Desktop\\STUDY\\ProyectoBiblioteca\\BibliotecaVirtual.Client\\BibliotecaVirtual.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Betsy\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.23\\microsoft.aspnetcore.authorization.8.0.23.nupkg.sha512",
     "C:\\Users\\Betsy\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.23\\microsoft.aspnetcore.components.8.0.23.nupkg.sha512",

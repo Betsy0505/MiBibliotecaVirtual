@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BibliotecaVirtual.Client/BibliotecaVirtual.Client.csproj" />
+  <Project Path="BibliotecaVirtual.Shared/BibliotecaVirtual.Shared.csproj" />
+  <Project Path="BibliotecaVirtual/BibliotecaVirtual.csproj" />
+</Solution>

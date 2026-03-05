@@ -19,29 +19,31 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 // 3. Configuración del pipeline (EL ORDEN IMPORTA)
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
+app.UseBlazorFrameworkFiles();
 // 4. HABILITAR ARCHIVOS ESTÁTICOS (Para ver las imágenes)
 app.UseStaticFiles();
 
 // 5. HABILITAR CORS (Debe ir después de StaticFiles y antes de MapControllers)
 app.UseCors();
-
 app.UseAuthorization();
 
+// IMPORTANTE: Solo esto para mapear
 app.MapControllers();
+app.MapRazorPages();
+app.MapFallbackToFile("index.html");
 
 app.Run();
