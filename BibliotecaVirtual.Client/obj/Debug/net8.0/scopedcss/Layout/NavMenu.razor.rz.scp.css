@@ -1,0 +1,21 @@
+/* NavMenu.razor.css */
+.navbar-brand[b-qj61zkj7kr] {
+    font-size: 1.25rem;
+}
+
+/* Evita que los iconos de Blazor por defecto interfieran */
+.bi[b-qj61zkj7kr] {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+/* Ajuste para que los links no se vean amontonados en móvil */
+@media (max-width: 991.98px) {
+    .navbar-collapse[b-qj61zkj7kr] {
+        background-color: #212529;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+}

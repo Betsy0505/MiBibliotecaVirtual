@@ -1,0 +1,20 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    background-color: #f4f7f6;
+}
+
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 641px) {
+    .page {
+        flex-direction: column;
+    }
+}

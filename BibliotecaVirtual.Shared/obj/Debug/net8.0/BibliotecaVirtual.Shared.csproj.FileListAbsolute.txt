@@ -1,0 +1,11 @@
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\bin\Debug\net8.0\BibliotecaVirtual.Shared.deps.json
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\bin\Debug\net8.0\BibliotecaVirtual.Shared.dll
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\bin\Debug\net8.0\BibliotecaVirtual.Shared.pdb
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\BibliotecaVirtual.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\BibliotecaVirtual.Shared.AssemblyInfoInputs.cache
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\BibliotecaVirtual.Shared.AssemblyInfo.cs
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\BibliotecaVirtual.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\BibliotecaVirtual.Shared.dll
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\refint\BibliotecaVirtual.Shared.dll
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\BibliotecaVirtual.Shared.pdb
+C:\Users\Betsy\Desktop\STUDY\BibliotecaVirtual.Shared\obj\Debug\net8.0\ref\BibliotecaVirtual.Shared.dll

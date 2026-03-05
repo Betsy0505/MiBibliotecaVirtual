@@ -1,0 +1,231 @@
+﻿/* --- Variables y Contenedor --- */
+.container-fluid {
+    background-color: var(--pearl-white);
+    min-height: 100vh;
+}
+
+h3 {
+    color: var(--ocean-dark) !important;
+}
+
+/* --- Tarjeta --- */
+.book-card {
+    border: none;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+    .book-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 109, 119, 0.15) !important;
+    }
+
+/* --- Imagen --- */
+.img-container {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+    .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+.book-card:hover .img-container img {
+    transform: scale(1.05);
+}
+
+/* --- Cuerpo y Títulos --- */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+.card-title {
+    color: var(--ocean-dark);
+    font-size: 1.1rem;
+    font-weight: bold;
+    height: 2.4em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* --- Botones y Acciones --- */
+.button-container {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-action {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 8px;
+    min-width: 60px;
+}
+
+.btn-edit {
+    background-color: var(--pearl-white);
+    color: var(--ocean-dark);
+    border: 1px solid var(--ocean-light) !important;
+    border-radius: 10px;
+}
+
+.btn-delete {
+    background-color: var(--pearl-white);
+    color: var(--peach-dark);
+    border: 1px solid var(--peach-soft) !important;
+    border-radius: 10px;
+}
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    filter: brightness(0.95);
+}
+
+/* --- Modal y Badges --- */
+.modal-header {
+    background-color: var(--ocean-dark);
+    color: white;
+}
+
+.modal-content {
+    background-color: var(--pearl-white);
+}
+
+.badge-rating {
+    background-color: var(--peach-soft) !important;
+    color: var(--peach-dark) !important;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 6px 12px;
+}
+
+.modal-custom-size {
+    max-width: 750px; 
+    max-height: 90px;
+    margin: 1.75rem auto;
+}
+
+.modal-body.p-4 {
+    padding: 1rem 1.5rem !important;
+}
+
+.img-detail-container {
+    border-radius: 12px;
+    overflow: hidden;
+    display: inline-block;
+    border: 4px solid white;
+}
+
+    .img-detail-container img {
+        max-height: 350px;
+        width: auto;
+        margin: 0 auto;
+    }
+
+.resena-box {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 15px; 
+    border-left: 4px solid var(--peach-soft);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    min-height: 80px;
+}
+
+.resena-scroll-content {
+    max-height: 100px; 
+    overflow-y: auto; 
+    padding-right: 5px;
+}
+    .resena-scroll-content::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .resena-scroll-content::-webkit-scrollbar-thumb {
+        background: var(--ocean-light);
+        border-radius: 10px;
+    }
+
+.modal-footer.p-3 {
+    padding: 0.5rem 1.5rem !important;
+}
+
+.modal-footer .btn {
+    padding: 5px 25px !important;
+    font-size: 0.9rem;
+}
+
+.modal-body h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem !important;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.info-grid span.fs-5 {
+    font-size: 1.1rem !important;
+}
+
+/* Estilo para la barra de búsqueda Ocean Pearl */
+.input-group {
+    border: 2px solid var(--ocean-light) !important;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+    .input-group:focus-within {
+        border-color: var(--ocean-dark) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 109, 119, 0.1) !important;
+    }
+
+.form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.btn-favorito {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ced4da;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+    .btn-favorito:hover {
+        transform: scale(1.15);
+        background: white;
+    }
+
+    .btn-favorito.active {
+        color: #ff4d6d; /* Un rosa/rojo vibrante */
+    }
+
+    .btn-favorito i {
+        font-size: 1.2rem;
+    }

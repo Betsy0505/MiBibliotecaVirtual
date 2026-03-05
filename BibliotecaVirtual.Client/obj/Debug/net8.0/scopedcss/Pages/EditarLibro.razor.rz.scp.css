@@ -1,0 +1,65 @@
+/* Controles de entrada personalizados */
+.custom-input[b-vyv72ij53h] {
+    border: 2px solid var(--ocean-light);
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+    .custom-input:focus[b-vyv72ij53h] {
+        border-color: var(--ocean-dark);
+        box-shadow: 0 0 10px rgba(0, 109, 119, 0.15);
+        outline: none;
+    }
+
+/* Switch personalizado */
+.custom-switch .form-check-input[b-vyv72ij53h] {
+    cursor: pointer;
+    width: 3em;
+    height: 1.5em;
+}
+
+    .custom-switch .form-check-input:checked[b-vyv72ij53h] {
+        background-color: var(--ocean-dark);
+        border-color: var(--ocean-dark);
+    }
+
+/* Botón Guardar/Actualizar (Peach) */
+.btn-guardar[b-vyv72ij53h] {
+    background-color: var(--peach-dark);
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    .btn-guardar:hover[b-vyv72ij53h] {
+        background-color: #d17d5d;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(226, 149, 120, 0.3);
+    }
+
+/* Botón Cancelar */
+.btn-cancelar[b-vyv72ij53h] {
+    background-color: transparent;
+    color: var(--ocean-dark);
+    border: 2px solid var(--ocean-light);
+    font-weight: bold;
+}
+
+    .btn-cancelar:hover[b-vyv72ij53h] {
+        background-color: var(--ocean-light);
+        color: white;
+    }
+
+/* Ajustes menores */
+.form-label[b-vyv72ij53h] {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.input-group-text[b-vyv72ij53h] {
+    border: 2px solid var(--ocean-light);
+    border-radius: 10px 0 0 10px;
+}

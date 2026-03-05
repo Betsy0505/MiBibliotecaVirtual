@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../BibliotecaVirtual.Client/BibliotecaVirtual.Client.csproj" Id="9fb52c93-0827-4f42-99ad-b55eab2f77a6" />
+  <Project Path="../BibliotecaVirtual.Shared/BibliotecaVirtual.Shared.csproj" Id="47f0b4ab-c3ce-42c9-b60d-40e04ebcb13c" />
+  <Project Path="BibliotecaVirtual.csproj" />
+</Solution>

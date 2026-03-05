@@ -1,0 +1,36 @@
+﻿@page "/"
+
+<div class="hero-container d-flex align-items-center justify-content-center">
+    <div class="hero-card p-5 text-center shadow-lg border-0 rounded-5">
+        @* Icono flotante superior *@
+        <div class="icon-badge mb-4">
+            <i class="bi bi-bookmarks-fill"></i>
+        </div>
+
+        <h1 class="display-4 fw-bold mb-3" style="color: var(--ocean-dark);">
+            ¡Bienvenido a tu <span class="text-accent">Biblioteca</span>!
+        </h1>
+        
+        <p class="lead mb-4 mx-auto text-secondary" style="max-width: 600px;">
+            Organiza tus lecturas, califica tus historias favoritas y mantén tu colección al día en un rincón diseñado para amantes de los libros.
+        </p>
+
+        <hr class="custom-divider mb-5">
+
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <a href="libros" class="btn btn-primary-custom btn-lg px-5 py-3 rounded-pill shadow-sm">
+                <i class="bi bi-collection-play me-2"></i>Ver mi colección
+            </a>
+            <a href="agregar-libro" class="btn btn-outline-custom btn-lg px-5 py-3 rounded-pill">
+                <i class="bi bi-plus-circle me-2"></i>Nuevo registro
+            </a>
+        </div>
+
+        @* Pequeña estadística o frase inspiradora *@
+        <div class="mt-5 pt-4 border-top opacity-50">
+            <small class="text-uppercase fw-bold tracking-widest" style="color: var(--ocean-dark); letter-spacing: 2px;">
+                "Un libro es un regalo que puedes abrir una y otra vez"
+            </small>
+        </div>
+    </div>
+</div>

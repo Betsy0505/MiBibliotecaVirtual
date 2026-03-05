@@ -1,0 +1,92 @@
+/* Contenedor principal que ocupa toda la pantalla */
+.hero-container[b-0vbycsf8a6] {
+    min-height: 85vh;
+    background-color: var(--pearl-white);
+}
+
+/* Tarjeta central blanca con diseño suave */
+.hero-card[b-0vbycsf8a6] {
+    background-color: white;
+    max-width: 900px;
+    width: 95%;
+    position: relative;
+    padding: 4rem 2rem !important;
+}
+
+/* Badge del icono superior */
+.icon-badge[b-0vbycsf8a6] {
+    background-color: var(--ocean-light);
+    color: var(--ocean-dark);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border-radius: 25px;
+    margin: -80px auto 20px auto; /* Lo hace flotar un poco hacia arriba */
+    box-shadow: 0 10px 20px rgba(0, 109, 119, 0.2);
+}
+
+/* Texto de acento */
+.text-accent[b-0vbycsf8a6] {
+    color: var(--peach-dark);
+}
+
+/* Divisor personalizado */
+.custom-divider[b-0vbycsf8a6] {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--ocean-dark), var(--peach-dark));
+    border: none;
+    margin: 2rem auto;
+    border-radius: 10px;
+}
+
+/* Botón Principal (Ocean Dark) */
+.btn-primary-custom[b-0vbycsf8a6] {
+    background-color: var(--ocean-dark);
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary-custom:hover[b-0vbycsf8a6] {
+        background-color: #005a63;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 109, 119, 0.3);
+        color: white;
+    }
+
+/* Botón Secundario (Peach) */
+.btn-outline-custom[b-0vbycsf8a6] {
+    background-color: transparent;
+    color: var(--peach-dark);
+    border: 2px solid var(--peach-soft);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-custom:hover[b-0vbycsf8a6] {
+        background-color: var(--peach-soft);
+        color: var(--peach-dark);
+        transform: translateY(-3px);
+    }
+
+/* Animación de entrada suave */
+.hero-card[b-0vbycsf8a6] {
+    animation: fadeInUp-b-0vbycsf8a6 0.8s ease-out;
+}
+
+@keyframes fadeInUp-b-0vbycsf8a6 {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

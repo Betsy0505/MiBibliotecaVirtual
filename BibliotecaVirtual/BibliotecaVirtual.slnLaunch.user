@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "..\\BibliotecaVirtual.Client\\BibliotecaVirtual.Client.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "BibliotecaVirtual.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,156 @@
+﻿@page "/agregar-libro"
+@using BibliotecaVirtual.Shared
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header p-4 border-0" style="background-color: var(--ocean-dark); color: white;">
+                    <h3 class="mb-0 fw-bold"><i class="bi bi-journal-plus me-2"></i>Añadir Nuevo Libro</h3>
+                    <p class="mb-0 opacity-75">Completa la información para expandir tu biblioteca</p>
+                </div>
+
+                <div class="card-body p-4" style="background-color: var(--pearl-white);">
+                    <EditForm Model="@nuevoLibro" OnValidSubmit="Guardar">
+                        <DataAnnotationsValidator />
+
+                        <div class="row g-3">
+                            @* Título *@
+                            <div class="col-md-12">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Título del Libro</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-book text-muted"></i></span>
+                                    <InputText @bind-Value="nuevoLibro.Titulo" class="form-control border-start-0 custom-input" placeholder="Ej: La vegetariana" />
+                                </div>
+                                <ValidationMessage For="@(() => nuevoLibro.Titulo)" class="text-danger small" />
+                            </div>
+
+                            @* Autor *@
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Autor</label>
+                                <InputText @bind-Value="nuevoLibro.Autor" class="form-control custom-input" placeholder="Nombre del autor" />
+                                <ValidationMessage For="@(() => nuevoLibro.Autor)" />
+                            </div>
+
+                            @* CATEGORÍA (Cambiado a Select dinámico) *@
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Categoría</label>
+                                <InputSelect @bind-Value="nuevoLibro.Categoria" class="form-select custom-input">
+                                    <option value="">-- Selecciona una categoría --</option>
+                                    @if (categorias != null)
+                                    {
+                                        @foreach (var cat in categorias)
+                                        {
+                                            <option value="@cat.Nombre">@cat.Nombre</option>
+                                        }
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => nuevoLibro.Categoria)" />
+                            </div>
+
+                            @* Páginas y Calificación *@
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Número de Páginas</label>
+                                <InputNumber @bind-Value="nuevoLibro.NoPaginas" class="form-control custom-input" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Calificación (1-3 ⭐)</label>
+                                <InputNumber @bind-Value="nuevoLibro.Calificación" class="form-control custom-input" min="1" max="3" />
+                            </div>
+
+                            @* Subida de Archivo *@
+                            <div class="col-md-12">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Subir Portada (Imagen)</label>
+                                <InputFile OnChange="OnFileChange" class="form-control custom-input" />
+                            </div>
+
+                            @* Reseña *@
+                            <div class="col-md-12">
+                                <label class="form-label fw-bold" style="color: var(--ocean-dark);">Tu Reseña</label>
+                                <InputTextArea @bind-Value="nuevoLibro.Reseña" class="form-control custom-input" rows="4" />
+                            </div>
+
+                            @* Estado de lectura *@
+                            <div class="col-md-12 mt-3">
+                                <div class="form-check form-switch custom-switch">
+                                    <InputCheckbox @bind-Value="nuevoLibro.Leido" class="form-check-input" id="checkLeido" />
+                                    <label class="form-check-label fw-bold" for="checkLeido" style="color: var(--ocean-dark);">Marcar como leído</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 mt-5">
+                            <button type="button" class="btn btn-cancelar px-4 rounded-pill" @onclick="Regresar">Cancelar</button>
+                            <button type="submit" class="btn btn-guardar px-5 rounded-pill shadow-sm">
+                                <i class="bi bi-check-lg me-2"></i>Guardar Libro
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private Book nuevoLibro = new Book { Calificación = 3 }; // Valor inicial sugerido
+    private IBrowserFile? portadaArchivo;
+    private List<Categoria> categorias = new List<Categoria>();
+
+    private void OnFileChange(InputFileChangeEventArgs e)
+    {
+        portadaArchivo = e.File;
+    }
+
+    private async Task Guardar()
+    {
+        try
+        {
+            using var content = new MultipartFormDataContent();
+
+            content.Add(new StringContent(nuevoLibro.Titulo ?? string.Empty), "Titulo");
+            content.Add(new StringContent(nuevoLibro.Autor ?? string.Empty), "Autor");
+            content.Add(new StringContent(nuevoLibro.Reseña ?? string.Empty), "Reseña");
+            content.Add(new StringContent(nuevoLibro.NoPaginas.ToString()), "NoPaginas");
+            content.Add(new StringContent(nuevoLibro.Categoria ?? string.Empty), "Categoria");
+            content.Add(new StringContent(nuevoLibro.Calificación.ToString()), "Calificación");
+            content.Add(new StringContent(nuevoLibro.Leido.ToString()), "Leido");
+
+            if (!string.IsNullOrEmpty(nuevoLibro.ImagenUrl))
+                content.Add(new StringContent(nuevoLibro.ImagenUrl), "ImagenUrl");
+
+            if (portadaArchivo != null)
+            {
+                var fileContent = new StreamContent(portadaArchivo.OpenReadStream(1024 * 1024 * 5));
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(portadaArchivo.ContentType);
+                content.Add(fileContent, "file", portadaArchivo.Name);
+            }
+
+            var response = await Http.PostAsync("api/Books", content);
+            
+            if (response.IsSuccessStatusCode) Nav.NavigateTo("/libros");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+    private void Regresar() => Nav.NavigateTo("/libros");
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var resultado = await Http.GetFromJsonAsync<List<Categoria>>("api/Categorias");
+            if (resultado != null) categorias = resultado;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine("Error al cargar categorías: " + ex.Message);
+        }
+    }
+}

@@ -1,0 +1,311 @@
+﻿@page "/libros"
+@using BibliotecaVirtual.Shared
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+<div class="container-fluid px-4">
+    <h3 class="my-4 fw-bold text-secondary"><i class="bi bi-bookshelf me-2"></i>Biblioteca Virtual</h3>
+
+    @* Buscador dinamicowwww *@
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-6">
+            <div class="input-group shadow-sm rounded-pill overflow-hidden border-0">
+                <span class="input-group-text border-0 bg-white ps-4">
+                    <i class="bi bi-search" style="color: var(--ocean-dark);"></i>
+                </span>
+                <input type="text"
+                       class="form-control border-0 py-3 ps-2"
+                       placeholder="Buscar por título, autor o categoría..."
+                       @bind="searchTerm"
+                       @bind:event="oninput" />
+                @if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    <button class="btn bg-white border-0 pe-4" @onclick="() => searchTerm = string.Empty">
+                        <i class="bi bi-x-circle-fill text-muted"></i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger shadow-sm">@errorMessage</div>
+    }
+    else if (libros == null)
+    {
+        <div class="text-center my-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-muted">Cargando tus libros...</p>
+        </div>
+    }
+    else if (!libros.Any())
+    {
+        <div class="text-center my-5 bg-light p-5 rounded-4 border">
+            <p class="text-muted">No hay libros para mostrar.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var libro in LibrosFiltrados)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    @* IMPORTANTE: data-bs-target debe coincidir exactamente con el ID del modal *@
+                    <div class="card book-card shadow-sm" @onclick="() => VerDetalles(libro)" style="cursor: pointer;">
+                        <div class="img-container" style="height: 300px; overflow: hidden;">
+                            <img src="@GetImageUrl(libro.ImagenUrl)" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Portada" />
+                        </div>
+                        <button class="btn-favorito @(libro.EsFavorito ? "active" : "")"
+                                @onclick="() => AlternarFavorito(libro)"
+                                @onclick:stopPropagation="true">
+                            @* Corregimos la sintaxis de C# dentro del atributo class *@
+                            <i class="bi @(libro.EsFavorito ? "bi-heart-fill" : "bi-heart")"></i>
+                        </button>
+                
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-dark fw-bold text-truncate">@libro.Titulo</h5>
+                            <p class="text-muted mb-2 small">@libro.Autor</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                @* Badge de Estrellas (Asegúrate de que tenga la clase del CSS) *@
+                                <span class="badge badge-rating">
+                                    @libro.Calificación / 3 ⭐
+                                </span>
+
+                                <div class="button-container">
+                                    @* Botón Editar *@
+                                    <a href="/editar-libro/@libro.Id" class="btn-action btn-edit text-decoration-none" @onclick:stopPropagation="true">
+                                        <i class="bi bi-pencil-square"></i>
+                                        <span>Editar</span>
+                                    </a>
+
+                                    @* Botón Eliminar *@
+                                    <button class="btn-action btn-delete"
+                                            @onclick="() => BorrarLibro(libro)" 
+                                            @onclick:stopPropagation="true">
+                                        <i class="bi bi-trash"></i>
+                                        <span>Eliminar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        @* Mensaje sino se encuentra el libroooo *@
+        @if (!LibrosFiltrados.Any() && !string.IsNullOrEmpty(searchTerm))
+        {
+            <div class="text-center my-5">
+                <p class="text-muted fs-5">No se encontraron libros que coincidan con "@searchTerm"</p>
+            </div>
+        }
+
+    }
+</div>
+
+<div class="modal fade" id="libroModal" tabindex="-1" aria-labelledby="libroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-custom-size modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            @if (libroSeleccionado != null)
+            {
+                @* Encabezado con el color Ocean Dark *@
+                <div class="modal-header border-0 pb-3" style="background-color: var(--ocean-dark); color: white;">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-info-circle me-2"></i>Detalles del Libro</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4" style="background-color: var(--pearl-white);">
+                    <div class="row">
+                        @* Columna de la Imagen con efecto de sombra *@
+                        <div class="col-md-5 mb-4 mb-md-0 text-center">
+                            <div class="img-detail-container shadow">
+                                <img src="@GetImageUrl(libroSeleccionado.ImagenUrl)"
+                                     class="img-fluid rounded-3"
+                                     alt="Portada de @libroSeleccionado.Titulo" />
+                            </div>
+                            @* Calificación destacada debajo de la foto *@
+                            <div class="mt-3">
+                                <span class="badge badge-rating fs-6">
+                                    @libroSeleccionado.Calificación / 3 ⭐
+                                </span>
+                            </div>
+                        </div>
+
+                        @* Columna de Información *@
+                        <div class="col-md-7">
+                            <h2 class="fw-bold mb-0" style="color: var(--ocean-dark);">@libroSeleccionado.Titulo</h2>
+                            <h5 class="text-muted mb-2">por <span class="fw-bold text-dark">@libroSeleccionado.Autor</span></h5>
+                    
+                            <div class="d-flex flex-wrap gap-2 mb-2">
+                                <span class="badge rounded-pill px-2 py-1" style="background-color: var(--ocean-light); color: var(--ocean-dark);">
+                                    <i class="bi bi-tag-fill me-1"></i> @libroSeleccionado.Categoria
+                                </span>
+                                @if (libroSeleccionado.Leido)
+                                {
+                                    <span class="badge rounded-pill px-2 py-1 bg-success bg-opacity-10 text-success border border-success border-opacity-25">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Leído
+                                    </span>
+                                }
+                            </div>
+
+                            <div class="info-grid p-2 rounded-3 mb-2" style="background-color: rgba(255, 255, 255, 0.5); border: 1px solid var(--ocean-light);">
+                                <div class="row text-center g-0">
+                                    <div class="col-6 border-end">
+                                        <small class="text-muted d-block text-uppercase fw-bold small">Páginas</small>
+                                        <span class="fs-5 fw-bold" style="color: var(--ocean-dark);">@libroSeleccionado.NoPaginas</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted d-block text-uppercase fw-bold small">Estado</small>
+                                        <span class="fs-5 fw-bold" style="color: @(libroSeleccionado.Leido ? "#198754" : "var(--peach-dark)");">
+                                            @(libroSeleccionado.Leido ? "Terminado" : "Pendiente")
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="resena-box">
+                                <label class="fw-bold mb-1 d-block" style="color: var(--ocean-dark);">
+                                    <i class="bi bi-chat-left-text me-2"></i>Reseña
+                                </label>
+                                <p class="text-secondary m-0" style="font-style: italic; white-space: pre-wrap;">
+                                    "@(string.IsNullOrEmpty(libroSeleccionado.Reseña) ? "Este libro aún no cuenta con una reseña personalizada." : libroSeleccionado.Reseña)"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer border-0 p-3" style="background-color: var(--pearl-white);">
+                    <button type="button" class="btn px-4 py-2 rounded-pill fw-bold"
+                            style="background-color: var(--peach-dark); color: white; border: none;"
+                            data-bs-dismiss="modal">
+                        Entendido
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Book>? libros;
+    private string? errorMessage;
+    private Book? libroSeleccionado;
+
+    private string searchTerm = "";
+
+    private IEnumerable<Book> LibrosFiltrados =>
+        string.IsNullOrWhiteSpace(searchTerm)
+            ? libros ?? new List<Book>()
+            : (libros ?? new List<Book>()).Where(l =>
+                (l.Titulo?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (l.Autor?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (l.Categoria?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false));
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var respuesta = await Http.GetFromJsonAsync<List<Book>>("api/Books");
+
+            if(respuesta != null)
+            {
+                libros = respuesta
+                .OrderByDescending(l => l.EsFavorito)
+                .ThenBy(l => l.Autor)
+                .ToList();
+            }
+            else
+            {
+                libros = new List<Book>();
+            }
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Error al obtener libros: " + ex.Message;
+            libros = new List<Book>();
+        }
+    }
+
+    private string GetImageUrl(string? imagenUrl)
+    {
+        if (string.IsNullOrEmpty(imagenUrl)) return "img/placeholder.png";
+        try
+        {
+            var baseUri = Http.BaseAddress ?? new Uri("/");
+            return new Uri(baseUri, imagenUrl).ToString();
+        }
+        catch { return imagenUrl; }
+    }
+
+    private async Task BorrarLibro(Book libro)
+    {
+        var confirmado = await JS.InvokeAsync<bool>("ConfirmarEliminacion", libro.Titulo);
+
+        if (confirmado)
+        {
+            try
+            {
+                var response = await Http.DeleteAsync($"api/Books/{libro.Id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    // 2. Quitamos el libro de la lista local para que desaparezca de la vista
+                    libros = libros?.Where(l => l.Id != libro.Id).ToList();
+                
+                    // 3. Notificación de éxito
+                    await JS.InvokeVoidAsync("Swal.fire", "¡Eliminado!", "El libro ha sido borrado.", "success");
+                }
+                else
+                {
+                    errorMessage = "No se pudo eliminar el libro del servidor.";
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Error al borrar: " + ex.Message;
+            }
+        }
+    }
+
+    private async Task VerDetalles(Book libro)
+    {
+        libroSeleccionado = libro;
+        StateHasChanged();
+
+        // Abrir el modal usando JavaScript puro (Vanilla JS)
+        await JS.InvokeVoidAsync("eval", "var myModal = new bootstrap.Modal(document.getElementById('libroModal')); myModal.show();");
+    }
+
+    private async Task AlternarFavorito(Book libro)
+    {
+        libro.EsFavorito = !libro.EsFavorito;
+
+        try
+        {
+            var response = await Http.PutAsJsonAsync($"api/Books/{libro.Id}/favorito", libro.EsFavorito);
+        
+            if (response.IsSuccessStatusCode)
+            {
+                // Forzamos el reordenamiento de la lista original
+                libros = libros?.OrderByDescending(l => l.EsFavorito).ThenBy(l => l.Titulo).ToList();
+            }
+            else
+            {
+                libro.EsFavorito = !libro.EsFavorito;
+                errorMessage = "No se pudo guardar el favorito.";
+            }
+        }
+        catch (Exception ex)
+        {
+            libro.EsFavorito = !libro.EsFavorito;
+            errorMessage = "Error: " + ex.Message;
+        }
+
+        StateHasChanged();
+    }
+
+
+}

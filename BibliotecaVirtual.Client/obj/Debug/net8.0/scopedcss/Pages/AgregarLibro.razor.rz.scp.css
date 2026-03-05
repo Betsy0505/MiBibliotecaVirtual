@@ -1,0 +1,48 @@
+/* Estilo de los inputs */
+.custom-input[b-euw4xl6d6z] {
+    border: 2px solid var(--ocean-light);
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+    .custom-input:focus[b-euw4xl6d6z] {
+        border-color: var(--ocean-dark);
+        box-shadow: 0 0 8px rgba(0, 109, 119, 0.2);
+        outline: none;
+    }
+
+/* Switch personalizado */
+.custom-switch .form-check-input:checked[b-euw4xl6d6z] {
+    background-color: var(--ocean-dark);
+    border-color: var(--ocean-dark);
+}
+
+/* Botón Guardar (Basado en Peach Dark) */
+.btn-guardar[b-euw4xl6d6z] {
+    background-color: var(--peach-dark);
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .btn-guardar:hover[b-euw4xl6d6z] {
+        background-color: #d17d5d; /* Un tono más oscuro de peach */
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(226, 149, 120, 0.4);
+    }
+
+/* Botón Cancelar (Sutil) */
+.btn-cancelar[b-euw4xl6d6z] {
+    background-color: transparent;
+    color: var(--ocean-dark);
+    border: 2px solid var(--ocean-light);
+    font-weight: bold;
+}
+
+    .btn-cancelar:hover[b-euw4xl6d6z] {
+        background-color: var(--ocean-light);
+        color: white;
+    }
